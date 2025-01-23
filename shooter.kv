@@ -1,0 +1,114 @@
+#:set color_cosmos 0.2, 0, 0.1, 1
+#:set color_bullet 1, 1, 0.5, 1
+<MainScreen>:
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: '50dp' 
+        md_bg_color: color_cosmos
+        Widget:
+        MDIconButton:
+            icon: "cog"
+            pos_hint: {"right": 1, "top": 1}
+            icon_size: '50dp'
+            on_press: root.show_settings()
+        # MDLabel:
+        #     text: 'SHOOTER'
+        #     halign: 'center'
+        #     font_size: '60sp'
+        Image:
+            source: 'images/dg-v.png'
+            size_hint_y: 0.7
+            size: dp(50), dp(50)
+            allow_stretch: True
+
+        MDRectangleFlatButton:
+            text: "Play"
+            font_size: '60sp'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            theme_text_color: "Custom"
+            text_color: "white"
+            line_color: "red"
+            on_press:
+                root.manager.current = 'game'
+
+<Ship>:
+    source: 'images/dg-v.png'
+    size_hint: None, None
+    size: dp(100), dp(100)
+    recharge: 0.5
+    hp: 10
+
+<EnemyShip@Ship>:
+    source: 'images/enemy_0.png'
+    hp: 3
+    
+
+<GameScreen>:
+    MDFloatLayout:
+        md_bg_color: color_cosmos
+        MDFloatLayout:
+            id: game
+            MDFloatLayout:
+                id: back
+            MDFloatLayout:
+                id: front
+                Ship:
+                    id: ship
+                    center: root.center_x, dp(100)
+        
+        MDFloatLayout:
+            id: interface
+            MDBoxLayout:
+                spasing: dp(20)
+                padding: dp(20)
+                Label:
+                    text: "HP:"
+                    font_size: '20sp'
+                    theme_text_color: color_bullet
+                    size_hint_y: 0.2
+                    size_hint_x: 0.2
+                    pos_hint: {'top': 1}
+                Label:
+                    id: hp_last
+                    text: ""
+                    font_size: '20sp'
+                    theme_text_color: color_bullet
+                    size_hint_y: 0.2
+                    size_hint_x: 0.1
+                    pos_hint: {'top': 1}
+                Widget:
+                MDIconButton:
+                    icon: "pause"
+                    pos_hint: {'top': 1}
+                    theme_icon_color: "Custom"
+                    icon_color: app.theme_cls.primary_color
+                    on_press: root.show_menu()
+                Widget:
+            MDBoxLayout:
+                spasing: dp(20)
+                padding: dp(20)
+                MDIconButton:
+                    icon: "arrow-left-bold"
+                    theme_icon_color: "Custom"
+                    icon_color: app.theme_cls.primary_color
+                    on_press: root.pressKey('left')
+                    on_release: root.releaseKey('left')
+                MDIconButton:
+                    icon: "arrow-right-bold"
+                    theme_icon_color: "Custom"
+                    icon_color: app.theme_cls.primary_color
+                    on_press: root.pressKey('right')
+                    on_release: root.releaseKey('right')
+                Widget:
+                MDIconButton:
+                    icon: "arrow-up-bold"
+                    theme_icon_color: "Custom"
+                    icon_color: app.theme_cls.primary_color
+                    on_press: root.pressKey('shot')
+                    on_release: root.releaseKey('shot')
+
+<Shot>:
+    size_hint: None, None
+    size: dp(20), dp(20)
+    md_bg_color: color_bullet
+    
