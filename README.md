@@ -1,1 +1,1 @@
-# SHOOTER_mobile_app
+# SHOOTER_mobile_app: kivy, kivyMD
